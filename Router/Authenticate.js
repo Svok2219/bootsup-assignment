@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 
 router.post("/Create", async (req, res) => {
   console.log(req.body);
-  const AuthenticatesBody = new Authenticates({
+  const AuthenticatesBody = new Authenticate({
     email: req.body.email,
     password: req.body.password,
     Name: req.body.Name,
