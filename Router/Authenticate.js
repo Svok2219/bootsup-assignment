@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
     password: req.body.password,
   });
   if (PostedValidationBody.length === 0) {
-    res.status(400).json({ success: false });
+    res.status(400).json({ success: false, content: PostedValidationBody });
   } else {
     res.status(200).json({ success: true });
   }
