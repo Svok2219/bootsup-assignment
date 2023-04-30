@@ -15,8 +15,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-console.log(process.env.DB_USER);
-
 app.get("/", (req, res) => res.send("Hello world! once again"));
 
 const BooksRouter = require("./Router/BooksRouter");

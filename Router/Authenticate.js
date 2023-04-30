@@ -16,19 +16,19 @@ router.post("/", async (req, res) => {
 
 router.post("/Create", async (req, res) => {
   console.log(req.body);
-  const BooksBody = new Books({
+  const AuthenticatesBody = new Authenticates({
     email: req.body.email,
     password: req.body.password,
     Name: req.body.Name,
   });
-  const PostedBooksBody = await BooksBody.save();
-  if (!PostedBooksBody)
+  const PostedAuthenticatesBody = await AuthenticatesBody.save();
+  if (!PostedAuthenticatesBody)
     return res
       .status(400)
       .json({ success: false, message: "User Creation was not Successful" });
   res.status(200).json({
     success: true,
-    content: PostedBooksBody,
+    content: PostedAuthenticatesBody,
     message: "User Creation Successful",
   });
 });
