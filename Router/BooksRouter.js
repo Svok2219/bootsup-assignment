@@ -6,6 +6,7 @@ router.post("/", async (req, res) => {
   console.log(req.body);
   const BooksBody = new Books({
     Name: req.body.Name,
+    picture: req.body.picture,
     Author: req.body.BooksAuthor,
   });
   const PostedBooksBody = await BooksBody.save();
