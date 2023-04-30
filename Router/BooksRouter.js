@@ -5,10 +5,8 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   console.log(req.body);
   const BooksBody = new Books({
-    Name: req.body.BooksName,
-    Position: req.body.BooksPosition,
-    Image: req.body.BooksImage,
-    LinkedIN: req.body.LinkedIN,
+    Name: req.body.Name,
+    Author: req.body.BooksAuthor,
   });
   const PostedBooksBody = await BooksBody.save();
   if (!PostedBooksBody)
@@ -24,15 +22,7 @@ router.post("/", async (req, res) => {
 
 router.get("/getAllBooks", async (req, res) => {
   const Bookss = await Books.find();
-  const BooksPresident = await Books.find({
-    Position: { $regex: /^President/ },
-  });
-  const BooksMentor = await Books.find({
-    Position: { $regex: /Mentor/ },
-  });
-  const BooksLead = await Books.find({
-    Position: { $regex: /Lead/ },
-  });
+
   if (!Bookss) return res.status(400).json({ success: false });
   return res.status(200).json({
     success: true,
@@ -49,7 +39,7 @@ router.get("/:id", async (req, res) => {
       if (!theBooks) {
         res
           .status(404)
-          .json({ success: false, message: "the Program does not exists" });
+          .json({ success: false, message: "the book does not exists" });
       } else {
         res.status(200).send(theBooks);
       }
@@ -76,33 +66,6 @@ router.delete("/:id", (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: "Could not delete Books with id=" + req.params.id,
-      });
-    });
-});
-
-router.patch("/:id", (req, res) => {
-  // console.log(req)
-  Books.findByIdAndUpdate(req.params.id, {
-    Name: req.body.BooksName,
-    Position: req.body.BooksPosition,
-    Image: req.body.BooksImage,
-    LinkedIN: req.body.LinkedIN,
-  })
-    // console.log(req.body.Positions)
-    .then((result) => {
-      if (!result) {
-        res.status(404).send({
-          message: `Cannot upImage Data with id=${req.params.id}. Maybe Books was not found!`,
-        });
-      } else {
-        res.send({
-          message: "Books was upImage successfully!",
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Could not UpImage Books with id=" + req.params.id,
       });
     });
 });
